@@ -16,6 +16,11 @@ services:
             dockerfile: .docker/php-fpm.docker
         volumes:
             -   ./:/var/www
+        links:
+            - redis
+        environment:
+            - "REDIS_PORT=6379"
+            - "REDIS_HOST=redis"
     php-cli:
         container_name: roomraccoon_assessment_php-cli
         build:
@@ -27,3 +32,12 @@ services:
         volumes:
             - ./:/var/www
         tty: true
+        links:
+            - redis
+        environment:
+            - "REDIS_PORT=6379"
+            - "REDIS_HOST=redis"
+    redis:
+        image: redis:6.2
+        ports:
+            - "6380:6379"
