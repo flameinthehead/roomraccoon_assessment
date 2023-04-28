@@ -16,10 +16,10 @@
     <?php endif; ?>
     <form action="/add" method="POST">
         <label>
-            <input name="name" placeholder="Shop item name" />
+            <input name="name" placeholder="Shop item name" value="<?=($_REQUEST['name'] ?? '')?>"/>
         </label><br />
         <label>
-            <input type="text" name="amount" placeholder="Shop item amount" />
+            <input type="text" name="amount" placeholder="Shop item amount" value="<?=($_REQUEST['amount'] ?? '')?>" />
         </label><br />
         <input type="submit" value="Add" />
     </form>

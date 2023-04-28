@@ -35,10 +35,8 @@ class Response
         http_response_code($this->status);
         header($this->answerType);
 
-        if (isset($this->renderData['data'])) {
-            $renderData = $this->renderData['data'];
-        }
-
+        $renderData = $this->renderData['data'] ?? null;
+        $validationError = $this->renderData['validation_error'] ?? null;
 
         include_once $this->view . '.php';
     }

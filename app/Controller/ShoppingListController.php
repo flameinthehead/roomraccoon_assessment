@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Response;
 use App\Service\ShoppingListService;
 use App\Validator\ValidatorInterface;
+use Throwable;
 
 class ShoppingListController
 {
@@ -23,17 +24,37 @@ class ShoppingListController
         ];
     }
 
-    public function add(): array
+    public function add(): ?array
     {
-        $shopItemDTO = $this->validator->validateAdd();
-        $this->service->add($shopItemDTO);
-        return $this->index();
+        try {
+            $shopItemDTO = $this->validator->validateAdd();
+            $this->service->add($shopItemDTO);
+            header('Location: /list');
+            return null;
+        } catch (Throwable $e) {
+            return [
+                'message' => 'OK',
+                'code' => Response::HTTP_OK,
+                'data' => $this->service->list(),
+                'validation_error' => $e->getMessage()
+            ];
+        }
     }
 
-    public function delete(): array
+    public function delete(): ?array
     {
-        $shopItemKey = $this->validator->validateDel();
-        $this->service->del($shopItemKey);
-        return $this->index();
+        try {
+            $shopItemKey = $this->validator->validateDel();
+            $this->service->del($shopItemKey);
+            header('Location: /list');
+            return null;
+        } catch (Throwable $e) {
+            return [
+                'message' => 'OK',
+                'code' => Response::HTTP_OK,
+                'data' => $this->service->list(),
+                'validation_error' => $e->getMessage()
+            ];
+        }
     }
 }
