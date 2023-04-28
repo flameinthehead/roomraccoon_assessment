@@ -36,7 +36,7 @@ class ShopItemValidator implements ValidatorInterface
     public function validateDel(): string
     {
         if (!isset($_REQUEST['id']) || $_REQUEST['id'] === '') {
-            throw new DelShopItemException('You should pass id for delete!');
+            throw new DelShopItemException('You should pass id for deleting!');
         }
 
         return trim(htmlspecialchars($_REQUEST['id']));
@@ -52,5 +52,14 @@ class ShopItemValidator implements ValidatorInterface
             throw new EditShopItemException('You should pass id for edit!');
         }
         return $this->validateAdd();
+    }
+
+    public function validationCheck(): string
+    {
+        if (!isset($_REQUEST['id']) || $_REQUEST['id'] === '') {
+            throw new DelShopItemException('You should pass id for checking!');
+        }
+
+        return trim(htmlspecialchars($_REQUEST['id']));
     }
 }

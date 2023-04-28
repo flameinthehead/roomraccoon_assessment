@@ -8,7 +8,7 @@ class ShopItemDTO implements StorageDTOInterface
 {
     public string $name;
     public string $amount;
-    public bool $isChecked;
+    public bool $isChecked = false;
 
     public function toArray(): array
     {

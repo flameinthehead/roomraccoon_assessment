@@ -32,12 +32,7 @@ class ShoppingListController
             header('Location: /list');
             return null;
         } catch (Throwable $e) {
-            return [
-                'message' => 'OK',
-                'code' => Response::HTTP_OK,
-                'data' => $this->service->list(),
-                'validation_error' => $e->getMessage()
-            ];
+            return $this->getValidationErrorResponse($e);
         }
     }
 
@@ -49,12 +44,7 @@ class ShoppingListController
             header('Location: /list');
             return null;
         } catch (Throwable $e) {
-            return [
-                'message' => 'OK',
-                'code' => Response::HTTP_OK,
-                'data' => $this->service->list(),
-                'validation_error' => $e->getMessage()
-            ];
+            return $this->getValidationErrorResponse($e);
         }
     }
 
@@ -66,12 +56,29 @@ class ShoppingListController
             header('Location: /list');
             return null;
         } catch (Throwable $e) {
-            return [
-                'message' => 'OK',
-                'code' => Response::HTTP_OK,
-                'data' => $this->service->list(),
-                'validation_error' => $e->getMessage()
-            ];
+            return $this->getValidationErrorResponse($e);
         }
+    }
+
+    public function check(): ?array
+    {
+        try {
+            $shopItemKey = $this->validator->validateDel();
+            $this->service->check($shopItemKey);
+            header('Location: /list');
+            return null;
+        } catch (Throwable $e) {
+            return $this->getValidationErrorResponse($e);
+        }
+    }
+
+    private function getValidationErrorResponse(Throwable $e): array
+    {
+        return [
+            'message' => 'OK',
+            'code' => Response::HTTP_OK,
+            'data' => $this->service->list(),
+            'validation_error' => $e->getMessage()
+        ];
     }
 }

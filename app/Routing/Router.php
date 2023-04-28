@@ -38,7 +38,7 @@ class Router
                 [$class, $method] = $route['route'];
                 $controller = $this->container->get($class);
                 $params = $this->getParams();
-                return new Response($route['view'], Response::HTTP_OK, $controller->{$method}(...$params));
+                return new Response('index', Response::HTTP_OK, $controller->{$method}(...$params));
             }
         }
 
@@ -93,7 +93,6 @@ class Router
             !is_null($route['method'])
             && !is_null($route['rule'])
             && !is_null($route['route'])
-            && !is_null($route['view'])
         );
     }
 }

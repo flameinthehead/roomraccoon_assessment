@@ -11,4 +11,6 @@ interface ValidatorInterface
     public function validateDel(): string;
 
     public function validationEdit(): StorageDTOInterface;
+
+    public function validationCheck(): string;
 }

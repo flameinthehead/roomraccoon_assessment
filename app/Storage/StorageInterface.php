@@ -14,5 +14,7 @@ interface StorageInterface
 
     public function edit(string $key, StorageDTOInterface $storageDTO): bool;
 
+    public function updateField(string $key, string $field, mixed $value): bool;
+
     public function delete(string $key): void;
 }

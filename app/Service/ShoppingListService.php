@@ -23,9 +23,14 @@ class ShoppingListService
         return $this->storage->add($storageDTO);
     }
 
-    public function edit(): void
+    public function edit(string $id, StorageDTOInterface $storageDTO): bool
     {
+        return $this->storage->edit($id, $storageDTO);
+    }
 
+    public function check(string $id): bool
+    {
+        return $this->storage->updateField($id, 'isChecked', true);
     }
 
     public function getStorage(): StorageInterface
