@@ -1,0 +1,26 @@
+version: '2'
+services:
+    nginx:
+        build:
+            context: ./
+            dockerfile: .docker/nginx.docker
+        volumes:
+            -   ./:/var/www
+        ports:
+            -   "8080:80"
+        links:
+            -   php-fpm
+    php-fpm:
+        build:
+            context: ./
+            dockerfile: .docker/php-fpm.docker
+        volumes:
+            -   ./:/var/www
+    php-cli:
+        container_name: roomraccoon_assessment_php-cli
+        build:
+            context: ./
+            dockerfile: .docker/php-cli.docker
+        volumes:
+            - ./:/var/www
+        tty: true
