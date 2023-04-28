@@ -23,8 +23,8 @@ class ShoppingListService
         return $this->storage->add($storageDTO);
     }
 
-    public function del(string $key): bool
+    public function del(string $key): void
     {
-        return $this->storage->delete($key);
+        $this->storage->delete($key);
     }
 }

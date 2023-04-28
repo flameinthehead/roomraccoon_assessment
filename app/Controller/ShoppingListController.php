@@ -34,5 +34,6 @@ class ShoppingListController
     {
         $shopItemKey = $this->validator->validateDel();
         $this->service->del($shopItemKey);
+        return $this->index();
     }
 }

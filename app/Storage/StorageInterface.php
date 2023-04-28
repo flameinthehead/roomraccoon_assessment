@@ -12,5 +12,5 @@ interface StorageInterface
 
     public function add(StorageDTOInterface $storageDTO): bool;
 
-    public function delete(string $key): bool;
+    public function delete(string $key): void;
 }

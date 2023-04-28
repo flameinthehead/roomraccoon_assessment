@@ -47,8 +47,8 @@ class RedisStorage implements StorageInterface
         return $this->storage->hgetall($key);
     }
 
-    public function delete(string $key): bool
+    public function delete(string $key): void
     {
-        $this->storage->delete($key);
+        $this->storage->del($key);
     }
 }
