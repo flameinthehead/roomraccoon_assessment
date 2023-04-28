@@ -1,0 +1,46 @@
+# Approximate gitlab build-check-deploy version
+
+stages:
+  - build
+  - check
+  - deploy
+
+build:
+  stage: build
+  image: docker:23.0.2
+  services:
+    - docker:23.0.2-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
+  script:
+    - docker compose build
+    - docker push flameinthehead/roomraccoon-nginx:1.0
+    - docker push flameinthehead/roomraccoon-php-fpm:1.0
+    - docker push flameinthehead/roomraccoon-php-cli:1.0
+    - docker push flameinthehead/roomraccoon-redis:1.0
+
+# Unit-tests, static analyzers, etc.
+#check:
+
+
+deploy:
+  stage: deploy
+  before_script:
+    - chmod 400 $SSH_KEY
+  script:
+    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY root@<IP_ADDRESS> "
+      sudo su deployer &&
+      docker login -u $REGISTRY_USER -p $REGISTRY_PASS &&
+      cd /var/www/roomraccoon/ &&
+      git config --global --add safe.directory /var/www/roomraccoon &&
+      git pull &&
+      docker exec roomraccoon_assessment_php-cli "composer install" &&
+      make down &&
+      make up
+      "
+
+
+
+

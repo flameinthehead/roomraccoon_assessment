@@ -22,11 +22,14 @@
                         <input type="submit" value="Remove" />
                     </form>
 
-                    <form style="display: none;" action="/edit" method="POST">
-                        <input type="text" name="name" value="<?=$shopItem['name']?>?>" />
-                        <input type="text" name="amount" value="<?=$shopItem['amount']?>" />
-                        <input type="submit" value="Edit" />
-                    </form>
+                    <?php if (!$isChecked): ?>
+                        <a href="#">Edit</a>
+                        <form style="display: none;" action="/edit" method="POST">
+                            <input type="text" name="name" value="<?=$shopItem['name']?>?>" />
+                            <input type="text" name="amount" value="<?=$shopItem['amount']?>" />
+                            <input type="submit" value="Edit" />
+                        </form>
+                    <?php endif; ?>
                 </li>
             <?php endforeach; ?>
         </ul>
