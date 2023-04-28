@@ -1,6 +1,16 @@
 FROM php:8.0-cli
 
-RUN apt-get update && apt-get install -y libmcrypt-dev mariadb-client \
+RUN apt-get update && apt-get install -y git libmcrypt-dev mariadb-client \
     && docker-php-ext-install mysqli pdo pdo_mysql
 
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+USER root
+
+ARG UID=1001
+ARG GID=1001
+
+RUN usermod -u $UID www-data && groupmod -g $GID www-data
+
+USER www-data
 WORKDIR /var/www
