@@ -1,0 +1,17 @@
+{
+    "name": "oleg/roomraccoon_assessment",
+    "authors": [
+        {
+            "name": "Oleg Shmakov",
+            "email": "flame.in.the.head@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app"
+        }
+    },
+    "require": {
+        "php-di/php-di": "^7.0"
+    }
+}
