@@ -16,15 +16,15 @@ class Response
     private int $status;
     private array $renderData;
     private string $answerType;
-    private string $viewPath;
+    private string $view;
 
     public function __construct(
-        string $viewPath,
+        string $view,
         int $status = null,
         array $renderData = null,
         string $answerType = null
     ) {
-        $this->viewPath = Kernel::getConfigKey(Kernel::CONFIG_KEY_VIEW_PATH) . '/' . $viewPath;
+        $this->view = Kernel::getConfigKey(Kernel::CONFIG_KEY_VIEW_PATH) . '/' . $view;
         $this->status = $status ?? self::HTTP_OK;
         $this->renderData = $renderData ?? [];
         $this->answerType = $answerType ?? self::CONTENT_TYPE_HTML;
@@ -35,6 +35,6 @@ class Response
         http_response_code($this->status);
         header($this->answerType);
         $renderData = $this->renderData;
-        include_once $this->viewPath . '.php';
+        include_once $this->view . '.php';
     }
 }
