@@ -5,9 +5,14 @@ namespace App\Validator;
 use App\DTO\ShopItemDTO;
 use App\DTO\StorageDTOInterface;
 use App\Exception\AddShopItemException;
+use App\Exception\DelShopItemException;
+use App\Exception\EditShopItemException;
 
 class ShopItemValidator implements ValidatorInterface
 {
+    /**
+     * @throws AddShopItemException
+     */
     public function validateAdd(): StorageDTOInterface
     {
         if (!isset($_REQUEST['name']) || $_REQUEST['name'] === '') {
@@ -25,12 +30,27 @@ class ShopItemValidator implements ValidatorInterface
         return $shopItemDTO;
     }
 
+    /**
+     * @throws DelShopItemException
+     */
     public function validateDel(): string
     {
         if (!isset($_REQUEST['id']) || $_REQUEST['id'] === '') {
-            throw new AddShopItemException('You should pass id for delete!');
+            throw new DelShopItemException('You should pass id for delete!');
         }
 
         return trim(htmlspecialchars($_REQUEST['id']));
+    }
+
+    /**
+     * @throws EditShopItemException
+     * @throws AddShopItemException
+     */
+    public function validationEdit(): StorageDTOInterface
+    {
+        if (!isset($_REQUEST['id'])) {
+            throw new EditShopItemException('You should pass id for edit!');
+        }
+        return $this->validateAdd();
     }
 }

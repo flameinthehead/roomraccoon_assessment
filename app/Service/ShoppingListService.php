@@ -23,6 +23,16 @@ class ShoppingListService
         return $this->storage->add($storageDTO);
     }
 
+    public function edit(): void
+    {
+
+    }
+
+    public function getStorage(): StorageInterface
+    {
+        return $this->storage;
+    }
+
     public function del(string $key): void
     {
         $this->storage->delete($key);

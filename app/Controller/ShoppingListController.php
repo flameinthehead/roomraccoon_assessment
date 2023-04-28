@@ -57,4 +57,21 @@ class ShoppingListController
             ];
         }
     }
+
+    public function edit(): ?array
+    {
+        try {
+            $shopItemDTO = $this->validator->validationEdit();
+            $this->service->add($shopItemDTO);
+            header('Location: /list');
+            return null;
+        } catch (Throwable $e) {
+            return [
+                'message' => 'OK',
+                'code' => Response::HTTP_OK,
+                'data' => $this->service->list(),
+                'validation_error' => $e->getMessage()
+            ];
+        }
+    }
 }

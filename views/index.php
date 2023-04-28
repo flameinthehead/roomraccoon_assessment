@@ -3,10 +3,25 @@
     <?php if (isset($renderData)): ?>
         <ul>
             <?php foreach($renderData as $key => $shopItem): ?>
-                <li><?=$shopItem['name']?> <?=$shopItem['amount']?>
+                <li><p>
+                        <?php if (isset($shopItem['isChecked']) && $shopItem['isChecked'] === true): ?><s><?php endif; ?>
+                            <?=$shopItem['name']?> <?=$shopItem['amount']?>
+                        <?php if (isset($shopItem['isChecked']) && $shopItem['isChecked'] === true): ?></s><?php endif; ?>
+                    </p>
+                    <form style="float: left;" action="/check" method="POST">
+                        <input type="hidden" name="id" value="<?=$key?>" />
+                        <input type="submit" value="Check" />
+                    </form>
+
                     <form action="/remove" method="POST">
                         <input type="hidden" name="id" value="<?=$key?>" />
                         <input type="submit" value="Remove" />
+                    </form>
+
+                    <form style="display: none;" action="/edit" method="POST">
+                        <input type="text" name="name" value="<?=$shopItem['name']?>?>" />
+                        <input type="text" name="amount" value="<?=$shopItem['amount']?>" />
+                        <input type="submit" value="Edit" />
                     </form>
                 </li>
             <?php endforeach; ?>

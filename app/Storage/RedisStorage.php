@@ -51,4 +51,10 @@ class RedisStorage implements StorageInterface
     {
         $this->storage->del($key);
     }
+
+    public function edit(string $key, StorageDTOInterface $storageDTO): bool
+    {
+        $status = $this->storage->hmset($key, $storageDTO->toArray());
+        return ($status->getPayload() === 'OK');
+    }
 }
