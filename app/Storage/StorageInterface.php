@@ -11,4 +11,6 @@ interface StorageInterface
     public function getAll(): array;
 
     public function add(StorageDTOInterface $storageDTO): bool;
+
+    public function delete(string $key): bool;
 }

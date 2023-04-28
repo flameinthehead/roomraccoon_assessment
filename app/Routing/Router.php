@@ -38,7 +38,6 @@ class Router
                 [$class, $method] = $route['route'];
                 $controller = $this->container->get($class);
                 $params = $this->getParams();
-
                 return new Response($route['view'], Response::HTTP_OK, $controller->{$method}(...$params));
             }
         }

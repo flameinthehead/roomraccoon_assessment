@@ -14,14 +14,14 @@ class Response
     private const CONTENT_TYPE_HTML = 'Content-Type: text/html; charset=utf-8';
 
     private int $status;
-    private array $renderData;
+    private mixed $renderData;
     private string $answerType;
     private string $view;
 
     public function __construct(
         string $view,
         int $status = null,
-        array $renderData = null,
+        mixed $renderData = null,
         string $answerType = null
     ) {
         $this->view = Kernel::getConfigKey(Kernel::CONFIG_KEY_VIEW_PATH) . '/' . $view;
@@ -34,7 +34,12 @@ class Response
     {
         http_response_code($this->status);
         header($this->answerType);
-        $renderData = $this->renderData;
+
+        if (isset($this->renderData['data'])) {
+            $renderData = $this->renderData['data'];
+        }
+
+
         include_once $this->view . '.php';
     }
 }

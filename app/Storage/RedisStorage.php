@@ -8,6 +8,7 @@ use App\DTO\StorageDTOInterface;
 use App\Exception\StorageException;
 use App\Kernel;
 use Predis\Client;
+use Ramsey\Uuid\Uuid;
 
 class RedisStorage implements StorageInterface
 {
@@ -21,21 +22,17 @@ class RedisStorage implements StorageInterface
 
     public function add(StorageDTOInterface $storageDTO): bool
     {
-        if(is_array($value)){
-            $status = $this->storage->hmset($key, $value);
-        } else {
-            $status = $this->storage->set($key, $value);
-        }
-
-        return ($status->getPayload() == 'OK');
+        $status = $this->storage->hmset('shoppingList_' . Uuid::uuid4(), $storageDTO->toArray());
+        return ($status->getPayload() === 'OK');
     }
 
     public function getAll(): array
     {
-        $list = $this->storage->keys('');
+        $list = $this->storage->keys('shoppingList_*');
+
         $result = [];
         foreach ($list as $key) {
-            $result[] = $this->find($key, true);
+            $result[$key] = $this->find($key, true);
         }
 
         return $result;
@@ -48,5 +45,10 @@ class RedisStorage implements StorageInterface
         }
 
         return $this->storage->hgetall($key);
+    }
+
+    public function delete(string $key): bool
+    {
+        $this->storage->delete($key);
     }
 }

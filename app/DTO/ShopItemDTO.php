@@ -6,13 +6,13 @@ use App\Storage\StorageInterface;
 
 class ShopItemDTO implements StorageDTOInterface
 {
-    public string $title;
+    public string $name;
     public string $amount;
 
     public function toArray(): array
     {
         return [
-            'title' => $this->title,
+            'name' => $this->name,
             'amount' => $this->amount
         ];
     }
