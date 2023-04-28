@@ -21,6 +21,9 @@ services:
         build:
             context: ./
             dockerfile: .docker/php-cli.docker
+            args:
+                UID: 1000
+                GID: 1000
         volumes:
             - ./:/var/www
         tty: true
