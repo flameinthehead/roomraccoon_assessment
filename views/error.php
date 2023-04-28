@@ -1,8 +1,3 @@
-<html>
-    <head>
-        <title>Application error</title>
-    </head>
-    <body>
-        <?=$renderData['message']?>
-    </body>
-</html>
+<?php include_once 'header.php'; ?>
+    <?=$renderData['message'] ?>
+<?php include_once 'footer.php'; ?>
