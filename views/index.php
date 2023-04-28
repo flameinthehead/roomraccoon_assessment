@@ -5,7 +5,7 @@
             <?php foreach($renderData as $key => $shopItem): ?>
                 <?php $isChecked = isset($shopItem['isChecked']) && $shopItem['isChecked'] === '1'; ?>
                 <li>
-                    <p>
+                    <p class="shop-item-info">
                         <?php if ($isChecked): ?><s><?php endif; ?>
                             <?=$shopItem['name']?> <?=$shopItem['amount']?>
                         <?php if ($isChecked): ?></s><?php endif; ?>
@@ -23,11 +23,12 @@
                     </form>
 
                     <?php if (!$isChecked): ?>
-                        <a href="#">Edit</a>
-                        <form style="display: none;" action="/edit" method="POST">
-                            <input type="text" name="name" value="<?=$shopItem['name']?>?>" />
+                        <a class="edit-link" href="#">Edit</a>
+                        <form class="edit-form" style="display: none;" action="/edit" method="POST">
+                            <input type="hidden" name="id" value="<?=$key?>" />
+                            <input type="text" name="name" value="<?=$shopItem['name']?>" />
                             <input type="text" name="amount" value="<?=$shopItem['amount']?>" />
-                            <input type="submit" value="Edit" />
+                            <input type="submit" value="Save" />
                         </form>
                     <?php endif; ?>
                 </li>

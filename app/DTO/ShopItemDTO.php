@@ -9,6 +9,7 @@ class ShopItemDTO implements StorageDTOInterface
     public string $name;
     public string $amount;
     public bool $isChecked = false;
+    public ?string $id = null;
 
     public function toArray(): array
     {
@@ -16,6 +17,7 @@ class ShopItemDTO implements StorageDTOInterface
             'name' => $this->name,
             'amount' => $this->amount,
             'isChecked' => $this->isChecked,
+            'id' => $this->id,
         ];
     }
 }

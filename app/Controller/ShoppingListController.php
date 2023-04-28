@@ -52,7 +52,7 @@ class ShoppingListController
     {
         try {
             $shopItemDTO = $this->validator->validationEdit();
-            $this->service->add($shopItemDTO);
+            $this->service->edit($shopItemDTO->id, $shopItemDTO);
             header('Location: /list');
             return null;
         } catch (Throwable $e) {

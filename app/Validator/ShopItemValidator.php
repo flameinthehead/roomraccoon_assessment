@@ -51,7 +51,9 @@ class ShopItemValidator implements ValidatorInterface
         if (!isset($_REQUEST['id'])) {
             throw new EditShopItemException('You should pass id for edit!');
         }
-        return $this->validateAdd();
+        $shopItemDTO = $this->validateAdd();
+        $shopItemDTO->id = trim(htmlspecialchars($_REQUEST['id']));
+        return $shopItemDTO;
     }
 
     public function validationCheck(): string

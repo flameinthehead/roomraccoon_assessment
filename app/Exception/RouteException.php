@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Exception;
 
-class RouteException extends \Exception
+use Exception;
+
+class RouteException extends Exception
 {
 
 }

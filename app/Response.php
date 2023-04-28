@@ -37,7 +37,6 @@ class Response
 
         $renderData = $this->renderData['data'] ?? null;
         $validationError = $this->renderData['validation_error'] ?? null;
-
         include_once $this->view . '.php';
     }
 }
