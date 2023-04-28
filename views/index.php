@@ -1,9 +1,14 @@
 <?php include_once 'header.php'; ?>
     <h1>Your personal shopping list</h1>
-    <?php if (isset($renderData['shoppingList'])): ?>
+    <?php if (isset($renderData)): ?>
         <ul>
-            <?php foreach($renderData['shoppingList'] as $shopItem): ?>
-                <li><?=$shopItem->title?> <?=$shopItem->amount?></li>
+            <?php foreach($renderData as $key => $shopItem): ?>
+                <li><?=$shopItem['name']?> <?=$shopItem['amount']?>
+                    <form action="/remove" method="POST">
+                        <input type="hidden" name="id" value="<?=$key?>" />
+                        <input type="submit" value="Remove" />
+                    </form>
+                </li>
             <?php endforeach; ?>
         </ul>
     <?php else: ?>
@@ -11,10 +16,10 @@
     <?php endif; ?>
     <form action="/add" method="POST">
         <label>
-            <input name="title" placeholder="Shop item title" />
+            <input name="name" placeholder="Shop item name" />
         </label><br />
         <label>
-            <input type="text" name="title" placeholder="Shop item amount" />
+            <input type="text" name="amount" placeholder="Shop item amount" />
         </label><br />
         <input type="submit" value="Add" />
     </form>
