@@ -1,6 +1,11 @@
 <html>
 <head>
     <title>Shopping List</title>
+    <style type="text/css">
+        input {
+            margin: 2px;
+        }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){

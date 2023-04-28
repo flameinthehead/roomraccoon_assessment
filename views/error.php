@@ -1,4 +1,4 @@
 <?php include_once 'header.php'; ?>
-    <?=$renderData['message']; ?><br />
+    <?=(is_array($renderData) && isset($renderData['message']) ? $renderData['message'] : 'Unknown error'); ?><br />
     <a href="/list">Move back</a>
 <?php include_once 'footer.php'; ?>
